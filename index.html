@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./style.css" type="text/css"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<style>
+  :root{
+    --body-font-family: 'DM Sans', sans-serif;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: var(--body-font-family); 
+}
+
+input{
+    padding: 1%;
+}
+
+input:focus {
+    background-color: greenyellow;
+  }
+
+nav{
+    background-color: black;
+    color: white;
+    padding: 2%;
+}
+
+input[type = submit]{
+    padding: 1%;
+    color: white;
+    width: 20%;
+    border-radius: 20px;
+    background-color: royalblue;
+    margin-left: 50px;
+}
+
+
+input[type = file]{
+    padding: 1%;
+    color: white;
+    width: 30%;
+    border-radius: 20px;
+    background-color: black;
+}
+
+input[type = color]{
+    color: white;
+    border-radius: 20px;
+    height: 30px;
+    width: 100px;
+    
+}
+
+.OrderForm{
+    display: flex;
+}
+
+.OrderForm .order-details{
+    background-color: white;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    border: 1px solid black;
+    width: 40%;
+    padding: 2%;
+}
+
+.order-preview{
+    padding: 10%;
+}
+
+.OrderForm .order-details #genericmenu{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+   
+    padding: 2%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.genericmenu{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+   
+    padding: 2%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.genericmenu2{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+   
+    padding: 2%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+}
+
+label{
+    font-weight: bolder;
+}
+
+
+
+.fa {
+  padding: 10px;
+  font-size: 30px;
+  width: 35px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.fa-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  color: white;
+}
+.fa-linkedin {
+  background: #003257;
+  color: white;
+}
+
+</style>
+<title>T-Shirt Order Form</title>
+</head>
+<body style="background-image: linear-gradient(180deg,#FBD3E9,#BB377D);">
+  <nav>
+    <h1>Your Cart</h1>
+  </nav>
+  <div class="OrderForm">
+    <div class="order-details">
+      <form name="myForm" id="shirt_cart" onsubmit="return validateForm()" enctype="multipart/form-data" method="put">
+      <h1>Order Details:</h1>
+      <br/>
+      <label for="tagline">Enter Tagline:</label>
+      <input type="text" name="tagline" id="tagline" placeholder="Enter Tagline Here" maxlength = "10"><br><br>
+    
+      <label for="img">Upload your design:  </label><br><br>
+      <input type="file" id="img" name="img" accept="image/*">
+      <br/>
+      <br/>
+
+      <div id="genericmenu">
+
+        <label for="color">Choose Color:</label><br><br>
+      <input type="color" id="color" name="color">
+      <br/>
+      <br/>
+
+        <label for="size">Select Size:</label><br>
+      <select id="size" name="size">
+      <option value="size">Size</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="35">35</option>
+      <option value="40">40</option>
+      </select><br><br>
+
+        <label for="quantity">Quantity (between 1 and 5):</label>
+      <input type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+      <br><br>
+
+      </div>
+    
+      
+    
+      <label for="birthday">Date of Delivery:</label>
+      <input type="date" id="DateOfDelivery" name="DateOfDelivery">
+      <br><br>
+        
+      <label for="email">Enter your email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" >
+      <br><br>
+    
+      
+    
+      
+      <div class="genericmenu2">
+        <label for="price" id="price" value="100.49$">Total Order Price: <strong>100.49$</strong></label><br><br>
+
+    
+
+      <label for="payment_options">Payment Options:</label>
+        <br />
+        <div class="options">
+        <i class="fa fa-credit-card" aria-hidden="true"></i>
+        <input
+        type="radio"
+        id="cc"
+        name="payment"
+        value="Credit/Debit Card"
+        />
+        <label for="cc">Credit/Debit Card</label> <br />
+        <i class="fa fa-google-wallet"></i>
+        <input
+        type="radio"
+        id="upi"
+        name="payment"
+        value="UPI"
+        />
+        <label for="upi">UPI</label> <br />
+        <i class="fa fa-paypal"></i>
+        <input
+        type="radio"
+        id="crypto"
+        name="payment"
+        value="Crypto"
+        />
+      <label for="crypto">Crypto-Wallet</label>
+      </div>
+
+      </div>
+     
+    
+      <div class="genericmenu">
+        <label for="Address">Delivery Address :</label>
+      <br>
+      <textarea type="textarea" id="address" name="Address" placeholder="Enter your Delivery Address" >
+      </textarea>
+      <br><br>
+    
+      <label for="Phone">Phone Number :</label>
+      <input type="tel" id="phone" name="phone" placeholder="1234567890"/>
+      <br/><br/>
+
+      </div>
+
+      <div class="genericmenu2">
+        <label for="time_options">Time Options:</label>
+        <br />
+        <div class="options">
+        <input
+        type="checkbox"
+        id="morning"
+        name="timep"
+        value="Morning"
+        />
+        <label for="morning">Morning</label> <br />
+        <input
+        type="checkbox"
+        id="Afternoon"
+        name="timep"
+        value="Afternoon"
+        />
+        <label for="Afternoon">Afternoon</label> <br />
+      </div>
+
+      <label for="custime"> Enter Custom Time :</label><br>
+      <input type="time" id="custime" name="appt">
+      <br/>
+      <br/>
+      </div>
+    
+      
+    
+      <label for="vol">Rate our service :</label><br/>
+      <input type="range" id="vol" name="vol" min="0" max="5" value="0">
+      <br/>
+      <br/>
+    
+      <label for="address">Address of Shipper:</label><br>
+      <p>1234 RockPort<br>
+      SanAndreas, LA - 02138</p>
+      <center><button type="submit"  
+      style=" margin: 30px;
+        padding: 10px;
+        width: 200px;
+        background-color: royalblue;
+        border-radius: 20px;
+        font-weight: bold;
+        color: white;">Place Order</button></center>
+        <br/>
+        <br/>
+        <h2>Connect With Us</h2>
+        <br/>
+
+      <a href="#" class="fa fa-facebook"></a>
+				<a href="#" class="fa fa-twitter"></a>
+				<a href="#" class="fa fa-instagram"></a>
+				<a href="#" class="fa fa-linkedin"></a>
+  
+      </form>
+    </div>
+    
+    <div class="order-preview">
+      <h1>Order Preview:</h1>
+      <br/>
+      <img width="250px" src="https://cdn.pixabay.com/photo/2016/03/16/21/43/t-shirt-1261820__340.png" alt="">
+      <br/>
+      <h1>Order Remarks:</h1>
+      <div id="remarks" style="background-color: white;color:red;padding: 30px;display: none;">
+        <ul>
+          <li><p id="first"></p></li>
+          <li><p id="second"></p></li>
+          <li><p id="third"></p></li>
+          <li><p id="fourth"></p></li>
+          <li><p id="fifth"></p></li>
+          <li><p id="sixth"></p></li>
+          <li><p id="seventh"></p></li>
+          <li><p id="eighth"></p></li>
+          <li><p id="nineth"></p></li>
+        </ul>
+    </div>
+    </div>
+
+   
+
+  </div>
+
+  
+</body>
+
+<script>
+      function validateForm() {
+          event.preventDefault();
+          const values = {
+          tagline:tagline=document.forms["myForm"]["tagline"].value,
+          color:document.forms["myForm"]["color"].value,
+          size:document.forms["myForm"]["size"].value,
+          payment:document.forms["myForm"]["payment"].value,
+          img:document.forms["myForm"]["img"].value,
+          price:document.getElementById("price").innerText,
+          quantity:document.forms["myForm"]["quantity"].value,
+          deliveydate:document.forms["myForm"]["DateOfDelivery"].value,
+          email:document.forms["myForm"]["email"].value,
+          address:document.forms["myForm"]["address"].value,
+          phone:document.forms["myForm"]["phone"].value,
+          ptime:[document.getElementById("morning").checked,
+          document.getElementById("Afternoon").checked],
+          ctime:document.forms["myForm"]["custime"].value
+          }
+
+          function validateTagline()
+          {
+            if(values.tagline == "" ) {
+              const elem = document.querySelector('#first');
+              elem.innerText = 'Tagline not defined!' ;
+              return false;
+              
+            }
+            else
+            {
+              return true;
+            }
+          }
+
+          function validateSize()
+          {
+            if( values.size == "size" ) {
+              const elem = document.querySelector('#second');
+              elem.innerText = 'Size not mentioned!' ;
+              return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
+
+
+          function validateQuantity()
+          {
+            if( values.quantity == "0" ) {
+              const elem = document.querySelector('#third');
+              elem.innerText = 'Quantity not specified!';
+              return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
+
+
+          function validateDeliveryDate()
+          {
+            if( values.deliveydate == "" ) {
+              const elem = document.querySelector('#fourth');
+              elem.innerText = 'Delivery Date not specified!';
+              return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
+
+          function validatePayment()
+          {
+            if( values.payment == "" ) {
+              const elem = document.querySelector('#sixth');
+              elem.innerText = 'Payment Mode not specified!';
+              return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
+
+
+          function validatetime()
+          {
+            if(values.ptime[0]==false&&values.ptime[1]==false&&values.ctime=="")
+            {
+              const elem = document.querySelector('#nineth');
+              elem.innerText = 'Delivery Time not specified!';
+              return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
+        
+         function validateEmail() {
+         var emailID = values.email;
+         atpos = emailID.indexOf("@");
+         dotpos = emailID.lastIndexOf(".");
+         
+         if (atpos < 1 || ( dotpos - atpos < 2 )) {
+            const elem = document.querySelector('#fifth');
+            elem.innerText = 'Invalid Email!';
+            return false;
+         }
+           return( true );
+       }
+
+       function ValidateAddress()
+       {
+          var address = values.address;
+          if(address=="")
+          {
+            const elem = document.querySelector('#seventh');
+            elem.innerText = 'Invalid Address!';
+            return false;
+          }
+          if((address.length < 20) || (address.length > 100))
+          {
+            const elem = document.querySelector('#seventh');
+            elem.innerText = 'Invalid Address !';
+            return false;
+          }  
+
+          else{
+            return true;
+          }
+      }
+
+      function Validatephonenumber()
+        {
+          inputtxt=values.phone;
+          if(inputtxt.length==10)
+           {
+                  return true;
+           }
+          else
+            {
+              const elem = document.querySelector('#eighth');
+              elem.innerText = 'Invalid Phone No!';
+              return false;
+            }
+        }
+
+        validateTagline();
+        validateSize();
+        validateQuantity();
+        validateDeliveryDate();
+        validateEmail();
+        validatePayment();
+        ValidateAddress();
+        Validatephonenumber();
+        validatetime();
+       
+
+        if(validateTagline()&&validateSize()&&validateQuantity()&&validateDeliveryDate()&&validateEmail()&&validatePayment()&&ValidateAddress()&&Validatephonenumber()&&validatetime())
+        {
+          alert("Form Submitted")
+          var doc = new jsPDF()
+          var pret=[];
+          doc.setFontSize(10)
+          doc.text(35, 25, 'Invoice')
+          doc.setFontSize(6)
+          doc.text(15, 30, 'Date : '+Date());
+          doc.text(15, 35, 'Tagline : '+values.tagline);
+          doc.text(15, 40, 'Size  : '+values.size);
+          doc.text(15, 45, 'Quantity  : '+values.quantity);
+          doc.text(15, 55, 'Delivery Date  : '+values.deliveydate);
+          doc.text(15, 60, 'Email  : '+values.email);
+          doc.text(15, 65, 'Price : '+values.price);
+          doc.text(15, 70, 'Payment Method : '+values.payment);
+          doc.text(15, 75, 'Address : '+values.address);
+          doc.text(15, 80, 'Phone Number : '+values.phone);
+          if(values.ptime[0]==true)
+          {
+              pret.push("Morning")
+              console.log("Sent Standard")
+          }
+          if(values.ptime[1]==true)
+          {
+              pret.push("Afternoon")
+          }
+          doc.text(15, 85, 'Preffered Delivery Time : '+pret);
+          doc.save('invoice.pdf'); 
+
+
+        }
+        else
+        {
+          alert("Check Remarks")
+          document.getElementById("remarks").style.display = "block";
+          document.remarks.focus();
+        }
+        }
+  </script>
+
+</html>
